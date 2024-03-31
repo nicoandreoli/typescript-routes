@@ -1,15 +1,15 @@
 {
   "name": "typescript-routes",
-  "version": "0.0.0",
-  "license": "MIT",
-  "scripts": {},
-  "private": true,
-  "dependencies": {},
-  "devDependencies": {
-    "@nx/js": "18.2.1",
-    "nx": "18.2.1"
+  "version": "0.0.1",
+  "description": "Agnostic typescript routing library",
+  "main": "src/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "build": "tsc -p tsconfig.json --outDir dist"
   },
-  "workspaces": [
-    "packages/*"
-  ]
+  "devDependencies": {
+    "typescript": "5.4.3"
+  },
+  "author": "",
+  "license": "ISC"
 }
