@@ -42,9 +42,7 @@ export class ParametizedRoute<
     if (!params) return route;
 
     Object.keys(params).forEach((key) => {
-      const snakeCaseKey = key.replace(/_([a-z])/g, (g) => g[1].toUpperCase());
-
-      route = route.replace(`:${snakeCaseKey}`, (params as any)?.[key as any]);
+      route = route.replace(`:${key}`, (params as any)?.[key as any]);
     });
 
     return route;
