@@ -25,6 +25,10 @@ export class CommonRoute<
     this.searchSchema = searchSchema;
   }
 
+  segment(): TPath {
+    return this.basePath;
+  }
+
   path(): TFullPath {
     return `${this.baseRoute.path()}${this.basePath}` as any;
   }

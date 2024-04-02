@@ -51,6 +51,7 @@ export class ParametizedRoute<
 
   types!: {
     Params: TParams;
+    Path: TPath;
     FullPath: TFullPath;
     SearchSchema: TSearchSchema;
     SearchSchemaReturn: TSearchSchemaReturn;

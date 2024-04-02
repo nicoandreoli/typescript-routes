@@ -8,6 +8,7 @@ export class RootRoute<TFullPath = typeof ROOT_ROUTE> {
   }
 
   types!: {
+    Path: typeof ROOT_ROUTE;
     FullPath: TFullPath;
   };
 }

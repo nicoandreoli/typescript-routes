@@ -36,6 +36,7 @@ export class BaseRoute<
   }
 
   types!: {
+    Path: TPath;
     FullPath: TFullPath;
     SearchSchema: TSearchSchema;
     SearchSchemaReturn: TSearchSchemaReturn;

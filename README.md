@@ -2,9 +2,11 @@
 
 Agnostic, minimal library designed for generating routes in any JS/TS framework.
 
-The routes define are 100% typesafe and automatically infer path params.
+Checkout examples using Vanilla or React + React Router in `examples/*`
 
 ## Example of usage
+
+Define your routes in a file:
 
 ```
 const rootRoute = new RootRoute()
@@ -12,11 +14,16 @@ const rootRoute = new RootRoute()
 const indexRoute = new BaseRoute(rootRoute, "/")
 const usersRoute = new BaseRoute(rootRoute, "/users")
 
-const userDetailRoute = new ParametizedRoute(usersRoute, "/:user_id")
+export const usersDetailRoute = new ParametizedRoute(usersRoute, "/:userId", {
+  searchSchema: (input: Record<string, unknown>) => ({
+    query: input?.query as string,
+    page: Number(input?.page) || 0,
+  }),
+});
 ```
 
+This example corresponds to this route tree:
 
-This basic example correspond to this tree:
 ```
 ---rootRoute
     ---indexRoute
@@ -25,11 +32,15 @@ This basic example correspond to this tree:
 ```
 
 
-All these methods are 100% typescript safe:
+All of these methods are 100% type safe:
 
 ```
 indexRoute.route()
-usersRoute.route()
+// "/"
 
-userDetailRoute.route({ userId: 'test-id' })
+usersRoute.route()
+// "/users"
+
+userDetailRoute.route({ userId: '123' }, { search: { query: 'testing', page: 100 }})
+// "/users/123?query=testing&page=100"
 ```
