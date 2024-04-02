@@ -2,9 +2,9 @@
 
 Agnostic, minimal library designed for generating routes in any JS/TS framework.
 
-Checkout examples using Vanilla or React + React Router in `examples/*`
+Checkout the example using React + React Router in `examples/2-react`. You can achieve a 100% type safe routing app app without migrating to `@tanstack/router`.
 
-## Example of usage
+## Basic usage
 
 Define your routes in a file:
 
@@ -22,7 +22,7 @@ export const usersDetailRoute = new ParametizedRoute(usersRoute, "/:userId", {
 });
 ```
 
-This example corresponds to this route tree:
+This example corresponds to the following route tree:
 
 ```
 ---rootRoute
@@ -31,8 +31,7 @@ This example corresponds to this route tree:
         ---userDetailRoute
 ```
 
-
-All of these methods are 100% type safe:
+Call the routes by accessing .route() method, a BaseRoute will require no args but a ParametizedRoute will require a Record<Params, string>:
 
 ```
 indexRoute.route()
