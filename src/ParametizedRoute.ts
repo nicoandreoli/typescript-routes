@@ -1,4 +1,5 @@
 import { AnyRoute } from "./AnyRoute";
+import { CommonRoute } from "./CommonRoute";
 import { ExtractPathParamsFromString, ParametizedPath } from "./type-utils";
 
 export class ParametizedRoute<
@@ -6,32 +7,32 @@ export class ParametizedRoute<
   TRoute extends AnyRoute,
   TFullPath extends string = `${TRoute["types"]["FullPath"]}${TPath}`,
   TParams extends string = ExtractPathParamsFromString<TFullPath>,
-  TSearchSchema = never
+  TSearchSchema extends (
+    args: Record<string, unknown>
+  ) => Record<string, unknown> = never,
+  TSearchSchemaReturn = ReturnType<TSearchSchema>
+> extends CommonRoute<
+  TPath,
+  TRoute,
+  TFullPath,
+  TSearchSchema,
+  TSearchSchemaReturn
 > {
-  private basePath: TPath;
-  private baseRoute: TRoute;
-  private validateSearchFn?: (arg: Record<string, unknown>) => TSearchSchema;
-
   constructor(
     route: TRoute,
     path: TRoute extends ParametizedRoute<any, any, any, any, any>
       ? TPath
       : ParametizedPath<TPath>,
-    validateSearchFn?: (arg: Record<string, unknown>) => TSearchSchema
+    options?: {
+      searchSchema?: TSearchSchema;
+    }
   ) {
-    this.basePath = path;
-    this.baseRoute = route;
-
-    if (validateSearchFn) this.validateSearchFn = validateSearchFn;
-  }
-
-  path(): TFullPath {
-    return `${this.baseRoute.path()}${this.basePath}` as any;
+    super(route, path, options);
   }
 
   route(
     params: Record<TParams, string>,
-    options?: { search?: Partial<TSearchSchema> }
+    options?: { search?: Partial<TSearchSchemaReturn> }
   ): string {
     const { search } = options || {};
 
@@ -48,25 +49,10 @@ export class ParametizedRoute<
     return route;
   }
 
-  parseSearchString(searchString: string): TSearchSchema {
-    const params = new URLSearchParams(searchString);
-
-    return this.validateSearchFn!(Object.fromEntries(params.entries()));
-  }
-
-  parseSearchObject(searchObject: Partial<TSearchSchema>): string {
-    const searchParams = new URLSearchParams();
-
-    Object.entries(searchObject).forEach(([key, value]) => {
-      searchParams.append(key, value as string);
-    });
-
-    return searchParams.toString();
-  }
-
   types!: {
     Params: TParams;
     FullPath: TFullPath;
     SearchSchema: TSearchSchema;
+    SearchSchemaReturn: TSearchSchemaReturn;
   };
 }
