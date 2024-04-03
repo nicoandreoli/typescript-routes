@@ -6,6 +6,7 @@
   "module": "dist/index.js",
   "types": "dist/index.d.ts",
   "type": "module",
+  "repository": "https://github.com/nicoandreoli/typescript-routes",
   "scripts": {
     "build": "tsup src/index.ts --format cjs,esm --minify --dts --out-dir dist",
     "test": "vitest run"
