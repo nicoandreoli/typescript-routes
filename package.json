@@ -1,6 +1,6 @@
 {
   "name": "typescript-routes",
-  "version": "0.0.3",
+  "version": "1.0.0",
   "description": "Agnostic typescript routing library",
   "main": "dist/index.cjs",
   "module": "dist/index.js",

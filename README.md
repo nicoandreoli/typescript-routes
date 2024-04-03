@@ -1,12 +1,16 @@
 # Typescript routes
 
-Agnostic, minimal library designed for generating routes in any JS/TS framework.
+Agnostic, minimal library designed for generating routes in any JS/TS framework:
 
-Checkout the example using React + React Router in `examples/2-react`. You can achieve a 100% type safe routing app app without migrating to `@tanstack/router`.
+- Path params automatically infered by `:` prefix
+- Search schema can be defined both in `BaseRoute` and `ParametizedRoute`
+- Agnostic, agnostic, agnostic
+
+Checkout the example using React + React Router in `examples/*`. You can defintely achieve a 100% type safe routing app app without migrating to `@tanstack/router`.
 
 ## Basic usage
 
-Define your routes in a file:
+First, define your routes in a file:
 
 ```
 const rootRoute = new RootRoute()
@@ -14,7 +18,7 @@ const rootRoute = new RootRoute()
 const indexRoute = new BaseRoute(rootRoute, "/")
 const usersRoute = new BaseRoute(rootRoute, "/users")
 
-export const usersDetailRoute = new ParametizedRoute(usersRoute, "/:userId", {
+const usersDetailRoute = new ParametizedRoute(usersRoute, "/:userId", {
   searchSchema: (input: Record<string, unknown>) => ({
     query: input?.query as string,
     page: Number(input?.page) || 0,
@@ -31,7 +35,7 @@ This example corresponds to the following route tree:
         ---userDetailRoute
 ```
 
-Call the routes by accessing .route() method, a BaseRoute will require no args but a ParametizedRoute will require a Record<Params, string>:
+Get the routes by calling .route() method. BaseRoute will require no args but ParametizedRoute will require Record<Params, string>, with type inference regarding your params starting with `:` prefix:
 
 ```
 indexRoute.route()
