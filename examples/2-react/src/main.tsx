@@ -2,8 +2,7 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import { indexRoute, usersDetailRoute, usersRoute } from "./routes";
-import { UserDetailPage } from "./pages/UserDetailPage";
-import { UsersPage } from "./pages";
+import { UsersPage, UserDetailPage } from "./pages";
 
 const router = createBrowserRouter([
   {

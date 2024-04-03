@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { BaseRoute, ParametizedRoute } from "../../../src";
+import { BaseRoute, ParametizedRoute } from "typescript-routes";
 
 import {
   useParams as useReactRouterParams,

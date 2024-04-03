@@ -1,4 +1,4 @@
-import { BaseRoute, ParametizedRoute, RootRoute } from "../../../src";
+import { BaseRoute, ParametizedRoute, RootRoute } from "typescript-routes";
 
 export const rootRoute = new RootRoute();
 
